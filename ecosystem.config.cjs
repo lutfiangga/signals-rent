@@ -11,7 +11,7 @@ module.exports = {
     {
       name: 'signals-web',
       script: 'artisan',
-      args: 'serve --host=[IP_ADDRESS] --port=8000', // Defaulting to Octane for high performance
+      args: 'serve --host=0.0.0.0 --port=8000', // Bind to all interfaces for container/host deployment
       interpreter: 'php',
       instances: 1,
       autorestart: true,
