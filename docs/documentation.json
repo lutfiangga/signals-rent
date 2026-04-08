@@ -1,0 +1,58 @@
+{
+    "sections": [
+        {
+            "title": "Getting Started",
+            "slug": "getting-started",
+            "pages": [
+                { "title": "Introduction", "slug": "introduction" },
+                { "title": "Installation", "slug": "installation" },
+                { "title": "Configuration", "slug": "configuration" },
+                { "title": "Authentication & Settings", "slug": "authentication" },
+                { "title": "Seeders", "slug": "seeders" }
+            ]
+        },
+        {
+            "title": "Platform",
+            "slug": "platform",
+            "pages": [
+                { "title": "Dashboard", "slug": "dashboard" },
+                { "title": "Admin Panel", "slug": "admin-panel" },
+                { "title": "Members", "slug": "members" },
+                { "title": "Products", "slug": "products" },
+                { "title": "Stock Levels", "slug": "stock-levels" },
+                { "title": "Activities", "slug": "activities" },
+                { "title": "Custom Fields", "slug": "custom-fields" },
+                { "title": "Lists", "slug": "lists" },
+                { "title": "Tax Classes", "slug": "tax-classes" },
+                { "title": "Countries", "slug": "countries" }
+            ]
+        },
+        {
+            "title": "API",
+            "slug": "api",
+            "pages": [
+                { "title": "API Overview", "slug": "overview" },
+                { "title": "Authentication", "slug": "authentication" },
+                { "title": "Members", "slug": "members" },
+                { "title": "Products", "slug": "products" },
+                { "title": "Stock Levels", "slug": "stock-levels" },
+                { "title": "Stock Transactions", "slug": "stock-transactions" },
+                { "title": "Activities", "slug": "activities" },
+                { "title": "Product Groups", "slug": "product-groups" },
+                { "title": "Custom Views", "slug": "custom-views" },
+                { "title": "Currencies", "slug": "currencies" },
+                { "title": "Exchange Rates", "slug": "exchange-rates" },
+                { "title": "Attachments", "slug": "attachments" },
+                { "title": "Webhooks", "slug": "webhooks" }
+            ]
+        },
+        {
+            "title": "Development",
+            "slug": "development",
+            "pages": [
+                { "title": "Getting Started", "slug": "getting-started" },
+                { "title": "Component Library", "slug": "library", "type": "blade", "view": "docs.components.library" }
+            ]
+        }
+    ]
+}
