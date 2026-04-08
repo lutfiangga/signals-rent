@@ -3,6 +3,20 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
+
+$trustedProxies = env('TRUSTED_PROXIES', '*');
+
+if (is_string($trustedProxies) && str_contains($trustedProxies, ',')) {
+    $trustedProxies = array_map('trim', explode(',', $trustedProxies));
+}
+
+$trustedProxyHeaders = Request::HEADER_X_FORWARDED_FOR
+    | Request::HEADER_X_FORWARDED_HOST
+    | Request::HEADER_X_FORWARDED_PORT
+    | Request::HEADER_X_FORWARDED_PROTO
+    | Request::HEADER_X_FORWARDED_PREFIX
+    | Request::HEADER_X_FORWARDED_AWS_ELB;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -12,7 +26,8 @@ return Application::configure(basePath: dirname(__DIR__))
         channels: __DIR__.'/../routes/channels.php',
         health: '/up',
     )
-    ->withMiddleware(function (Middleware $middleware): void {
+    ->withMiddleware(function (Middleware $middleware) use ($trustedProxies, $trustedProxyHeaders): void {
+        $middleware->trustProxies($trustedProxies, $trustedProxyHeaders);
         $middleware->prepend(\App\Http\Middleware\ResolveTenant::class);
 
         $middleware->alias([

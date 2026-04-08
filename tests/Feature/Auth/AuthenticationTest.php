@@ -4,6 +4,7 @@ namespace Tests\Feature\Auth;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt as LivewireVolt;
 use Tests\TestCase;
 
@@ -22,6 +23,17 @@ class AuthenticationTest extends TestCase
         $response = $this->get('/login');
 
         $response->assertStatus(200);
+    }
+
+    public function test_forwarded_https_requests_are_trusted(): void
+    {
+        Route::get('/proxy-scheme-check', static fn () => request()->getSchemeAndHttpHost());
+
+        $response = $this->withHeader('X-Forwarded-Proto', 'https')
+            ->get('/proxy-scheme-check');
+
+        $response->assertStatus(200);
+        $response->assertSee('https://');
     }
 
     public function test_users_can_authenticate_using_the_login_screen(): void
