@@ -117,6 +117,10 @@ class CheckInfrastructure
      */
     private function checkReverb(): array
     {
+        if (config('broadcasting.default') !== 'reverb') {
+            return ['passed' => true, 'message' => 'Not required for current broadcast driver'];
+        }
+
         $appId = config('reverb.apps.apps.0.app_id')
             ?? config('broadcasting.connections.reverb.app_id');
 

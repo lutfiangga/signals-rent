@@ -170,10 +170,28 @@ it('fails reverb check when not configured', function () {
     config([
         'reverb.apps.apps' => [],
         'broadcasting.connections.reverb.app_id' => null,
+        'broadcasting.default' => 'reverb',
     ]);
 
     $result = (new CheckInfrastructure)();
 
     expect($result['checks']['reverb']['passed'])->toBeFalse();
     expect($result['checks']['reverb']['message'])->toContain('not configured');
+});
+
+it('passes reverb check when broadcast driver is not reverb', function () {
+    $mockDb = Mockery::mock(PostgresConnectionTester::class);
+    $mockDb->shouldReceive('test')->andReturn(['success' => true, 'version' => 'PostgreSQL 16.0', 'error' => null]);
+    app()->instance(PostgresConnectionTester::class, $mockDb);
+
+    config([
+        'reverb.apps.apps' => [],
+        'broadcasting.connections.reverb.app_id' => null,
+        'broadcasting.default' => 'log',
+    ]);
+
+    $result = (new CheckInfrastructure)();
+
+    expect($result['checks']['reverb']['passed'])->toBeTrue();
+    expect($result['checks']['reverb']['message'])->toContain('Not required');
 });
